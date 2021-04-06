@@ -13,13 +13,9 @@ const books = [
   { title: "Guerre et Paix", id: 748147, rented: 19 },
 ];
 
-let bookTitles = new Array();
-books.forEach((book) => {
-  bookTitles.push(book.title);
-});
-// console.log(bookTitles);
+let bookTitles = books.map((book) => book.title);
 
-let sortedBooks = books.sort((bookA, bookB) => {
+let sortedBooks = [...books].sort((bookA, bookB) => {
   valueA = bookA.rented;
   valueB = bookB.rented;
 
@@ -33,18 +29,14 @@ let sortedBooks = books.sort((bookA, bookB) => {
 });
 
 const hasBeenRented = (book) => book.rented >= 1;
-// console.log(books.every(hasBeenRented))
 
-let mostRented = sortedBooks.pop();
+let mostRented = sortedBooks[sortedBooks.length - 1];
 let lessRented = sortedBooks[0];
 
-// console.log(mostRented);
-// console.log(lessRented);
+let filtredBooks = books.filter((book) => book.id != 133712);
 
-let filtredBooks = new Array();
-books.forEach((book) => {
-  if (book.id != 133712) {
-    filtredBooks.push(book);
-  }
-});
-// console.log(filtredBooks)
+console.log(bookTitles);
+console.log(books.every(hasBeenRented));
+console.log(mostRented);
+console.log(lessRented);
+console.log(filtredBooks);

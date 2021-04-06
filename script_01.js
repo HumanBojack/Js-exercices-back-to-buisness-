@@ -19,23 +19,28 @@ const entrepreneurs = [
 	{ first: "Peter", last: "Thiel", year: 1967 },
 ];
 
-const entrepreneurAge = (entrepreneur) =>
-	new Date().getFullYear() - entrepreneur.year;
-const seventiesEntrepreneurs = (entrepreneurs) =>
-	entrepreneurs.filter(
-		(entrepreneur) => entrepreneur.year >= 1970 && entrepreneur.year < 1980
-	);
-let entrepreneursShort = new Array();
-let identity;
+const age = (entrepreneur) => new Date().getFullYear() - entrepreneur.year;
 
-entrepreneurs.forEach((entrepreneur) => {
-	identity = {
-		firstName: entrepreneur.first,
-		lastName: entrepreneur.last,
-		age: entrepreneurAge(entrepreneur),
+let seventiesEntrepreneurs = entrepreneurs.filter(
+	(entrepreneur) => entrepreneur.year >= 1970 && entrepreneur.year < 1980
+);
+
+let entrepreneursShort = entrepreneurs.map((entrepreneur) => {
+	return {
+		first: entrepreneur.first,
+		last: entrepreneur.last,
 	};
-	entrepreneursShort.push(identity);
 });
 
-// console.log(entrepreneursShort);
-// console.log(seventiesEntrepreneurs(entrepreneurs));
+let prettierList = entrepreneurs.map((entrepreneur) => {
+	return {
+		firstName: entrepreneur.first,
+		lastName: entrepreneur.last,
+		age: age(entrepreneur),
+	};
+});
+
+console.log(entrepreneursShort);
+console.log(entrepreneurs);
+console.log(seventiesEntrepreneurs);
+console.log(prettierList);

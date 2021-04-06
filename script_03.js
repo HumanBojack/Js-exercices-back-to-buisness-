@@ -55810,7 +55810,9 @@ gm: ${usersByNationality("Germany").length}
 usa: ${usersByNationality("United States").length} 
 gb: ${usersByNationality("Great Britain").length}`;
 
-let costEffectiveCountries = [... new Set(costEffectiveUsers.map(user => user.country))]
+let costEffectiveCountries = [
+  ...new Set(costEffectiveUsers.map((user) => user.country)),
+];
 
 let topFiveUsers = [...users]
   .sort((userA, userB) => {
@@ -55838,9 +55840,9 @@ const mainSex = function () {
   }
 };
 
-let firstHundredCostEffectivePercentage = [...users].slice(0,100).filter((user) => user.revenue > 0).length
-
-
+let firstHundredCostEffectivePercentage = [...users]
+  .slice(0, 100)
+  .filter((user) => user.revenue > 0).length;
 
 console.log(averageRevenue(users));
 console.log(
@@ -55858,5 +55860,5 @@ console.log(biggestNationalities);
 console.log(costEffectiveCountries);
 console.log(topFiveUsers);
 console.log(mainSex());
-console.log(users.filter(user => user.revenue >= 75));
+console.log(users.filter((user) => user.revenue >= 75));
 console.log(firstHundredCostEffectivePercentage);

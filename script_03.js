@@ -55793,65 +55793,26 @@ const users = [
 ];
 
 const totalRevenue = (array) => {
-  let total;
-  return array.reduce((total, user) => {
-    total += user.revenue;
-    return total;
-  }, 0);
+  return array.reduce((total, user) => (total += user.revenue), 0);
 };
 
-const averageUserRevenue = (array) => {
-  return totalRevenue(array) / array.length;
-};
+const averageRevenue = (array) => totalRevenue(array) / array.length;
 
-// console.log(averageUserRevenue(users));
+let costEffectiveUsers = [...users].filter((user) => user.revenue > 0);
+const costEffectivePercentage = (effectiveUsers) =>
+  (effectiveUsers.length / users.length).toFixed(3) * 100;
 
-let costEffectiveUsers = users.filter((user) => user.revenue > 0);
-const costEffectivePercentage = (effectiveUsers) => {
-  return `${
-    (effectiveUsers.length / users.length).toFixed(3) * 100
-  }% des utilisateurs sont rentables (ont rapporté de l'argent à l'entreprise)`;
-};
+const usersByNationality = (nationality) =>
+  users.filter((user) => user.country === nationality);
 
-// console.log(costEffectivePercentage(costEffectiveUsers));
+let biggestNationalities = `fr: ${usersByNationality("France").length} 
+gm: ${usersByNationality("Germany").length}
+usa: ${usersByNationality("United States").length} 
+gb: ${usersByNationality("Great Britain").length}`;
 
-// console.log(averageUserRevenue(costEffectiveUsers));
+let costEffectiveCountries = [... new Set(costEffectiveUsers.map(user => user.country))]
 
-// console.log(totalRevenue(users))
-
-let frenchUsers = users.filter((user) => user.country === "France");
-
-// console.log(frenchUsers.length);
-// console.log(frenchUsers.filter(user => user.revenue > 0).length);
-
-const biggestNationalities = function () {
-  let frenchRevenue = totalRevenue(
-    users.filter((user) => user.country === "France")
-  );
-  let germanRevenue = totalRevenue(
-    users.filter((user) => user.country === "Germany")
-  );
-  let usaRevenue = totalRevenue(
-    users.filter((user) => user.country === "United States")
-  );
-  let gbRevenue = totalRevenue(
-    users.filter((user) => user.country === "Great Britain")
-  );
-  return `fr: ${frenchRevenue} gm: ${germanRevenue} usa: ${usaRevenue} gb: ${gbRevenue}`;
-};
-
-// console.log(biggestNationalities())
-
-let costEffectiveCountries = new Array();
-costEffectiveUsers.forEach((user) => {
-  if (!costEffectiveCountries.find((country) => country == user.country)) {
-    costEffectiveCountries.push(user.country);
-  }
-});
-
-// console.log(costEffectiveCountries);
-
-let topFiveUsers = users
+let topFiveUsers = [...users]
   .sort((userA, userB) => {
     let revenueA = userA.revenue;
     let revenueB = userB.revenue;
@@ -55866,8 +55827,6 @@ let topFiveUsers = users
   })
   .slice(-5);
 
-// console.log(topFiveUsers);
-
 const mainSex = function () {
   let womens = users.filter((user) => user.sex == "F");
   let mens = users.filter((user) => user.sex == "M");
@@ -55879,22 +55838,25 @@ const mainSex = function () {
   }
 };
 
-// console.log(mainSex());
+let firstHundredCostEffectivePercentage = [...users].slice(0,100).filter((user) => user.revenue > 0).length
 
-// console.log(users.filter(user => user.revenue >= 75));
 
-const firstHundredCostEffective = (users) => {
-  let firstHundredUsers = users
-    .sort((userA, userB) => {
-      if (userA.id > userB.id) {
-        return 1;
-      } else if (userA.id < userB.id) {
-        return -1;
-      } else {
-        return 0;
-      }
-    })
-    .slice(0, 100);
-  return firstHundredUsers.filter((user) => user.revenue > 0).length; // Déjà un pourcentage car ça reviens au même que de faire /100*100
-};
-// console.log(firstHundredCostEffective(users));
+
+console.log(averageRevenue(users));
+console.log(
+  `${costEffectivePercentage(
+    costEffectiveUsers
+  )}% des utilisateurs sont rentables (ont rapporté de l'argent à l'entreprise)`
+);
+console.log(averageRevenue(costEffectiveUsers));
+console.log(totalRevenue(users));
+console.log(usersByNationality("France").length);
+console.log(
+  usersByNationality("France").filter((user) => user.revenue > 0).length
+);
+console.log(biggestNationalities);
+console.log(costEffectiveCountries);
+console.log(topFiveUsers);
+console.log(mainSex());
+console.log(users.filter(user => user.revenue >= 75));
+console.log(firstHundredCostEffectivePercentage);
